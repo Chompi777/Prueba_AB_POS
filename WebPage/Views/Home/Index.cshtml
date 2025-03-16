@@ -1,26 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "Página de la Empresa";
+    ViewData["Title"] = "OnlyDevs - Innovando el Desarrollo";
 }
 
-<div class="container">
-    <h1>Bienvenido a Nuestra Empresa</h1>
-    <p>Proporcionamos los mejores servicios.</p>
+<div class="hero">
+    <h1>🚀 Bienvenido a <span>OnlyDevs</span></h1>
+    <p>Transformamos ideas en código, construyendo soluciones innovadoras.</p>
+    <a href="#contact" class="cta-button">Contáctanos</a>
 </div>
 
 <!-- Formulario de Contacto -->
-<div class="contact-form">
-    <h3>Contáctanos</h3>
+<div id="contact" class="contact-form">
+    <h3>💬 ¡Hablemos!</h3>
     <form id="contactForm">
-        <input type="text" name="Name" placeholder="Nombre" required>
+        <input type="text" name="Name" placeholder="Tu Nombre" required>
         <input type="email" name="Email" placeholder="Correo Electrónico" required>
-        <textarea name="Message" placeholder="Mensaje" required></textarea>
-        <button type="submit">Enviar</button>
+        <textarea name="Message" placeholder="Escribe tu mensaje..." required></textarea>
+        <button type="submit">Enviar ✉️</button>
     </form>
     <p id="responseMessage"></p>
 </div>
 
 <script>
-    document.getElementById("contactForm").addEventListener("submit", function(event) {
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
         let formData = new FormData(this);
@@ -29,10 +30,10 @@
             method: "POST",
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("responseMessage").innerText = data.message;
-        })
-        .catch(error => console.error("Error:", error));
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("responseMessage").innerText = data.message;
+            })
+            .catch(error => console.error("Error:", error));
     });
 </script>
