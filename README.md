@@ -51,3 +51,9 @@ Este `README.md` es sencillo pero informativo y presenta el proyecto de una mane
 
 ```
 By Salvador Guerra 2025
+
+Images
+![image](https://github.com/user-attachments/assets/1331fe91-f7c1-4fb1-abe6-21ea9e7057e6)
+![image](https://github.com/user-attachments/assets/bdd3305f-86e1-44a0-9a4f-49e1cd023676)
+![image](https://github.com/user-attachments/assets/bfebed39-760f-44f1-96a7-d1804471fd6c)
+
