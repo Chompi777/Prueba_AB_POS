@@ -1,71 +1,49 @@
 ﻿@{
-    ViewData["Title"] = "OnlyDevs - Contacto";
+    ViewData["Title"] = "OnlyDevs - Innovando el Desarrollo";
 }
 
-<div class="container">
-    <h1>Bienvenido a OnlyDevs</h1>
-    <p>Tu mejor opción para soluciones tecnológicas innovadoras.</p>
+<!-- Sección principal o Hero -->
+<div class="hero">
+    <h1>🚀 Bienvenido a <span>OnlyDevs</span></h1>
+    <p>Transformamos ideas en código, construyendo soluciones innovadoras.</p>
+    <!-- Botón de llamada a la acción que lleva al formulario de contacto -->
+    <a href="#contact" class="cta-button">Contáctanos</a>
 </div>
 
 <!-- Formulario de Contacto -->
-<div class="contact-form">
-    <h3>Contáctanos</h3>
+<div id="contact" class="contact-form">
+    <h3>💬 ¡Hablemos!</h3>
     <form id="contactForm">
-        <input type="text" name="Name" placeholder="Nombre" required>
+        <!-- Campo para el nombre del usuario -->
+        <input type="text" name="Name" placeholder="Tu Nombre" required>
+        <!-- Campo para el correo electrónico -->
         <input type="email" name="Email" placeholder="Correo Electrónico" required>
-        <textarea name="Message" placeholder="Mensaje" required></textarea>
-        <button type="submit">Enviar</button>
+        <!-- Área de texto para el mensaje -->
+        <textarea name="Message" placeholder="Escribe tu mensaje..." required></textarea>
+        <!-- Botón de envío del formulario -->
+        <button type="submit">Enviar ✉️</button>
     </form>
-</div>
-
-<!-- Modal de Confirmación (Oculto al inicio) -->
-<div id="confirmationModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>¡Mensaje Enviado!</h2>
-        <p>Gracias por contactarnos. Te responderemos pronto.</p>
-    </div>
+    <!-- Mensaje de respuesta tras enviar el formulario -->
+    <p id="responseMessage"></p>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let modal = document.getElementById("confirmationModal");
-        let closeModal = document.querySelector(".close");
+    // Capturamos el evento de envío del formulario
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evita que la página se recargue al enviar
 
-        document.getElementById("contactForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            let formData = new FormData(this);
+        let formData = new FormData(this); // Obtenemos los datos del formulario
 
-            fetch("/Contact/Submit", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
+        // Enviamos los datos al backend mediante una petición fetch
+        fetch("/Contact/Submit", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json()) // Convertimos la respuesta a JSON
             .then(data => {
-                if (data.success) {
-                    // Mostrar el modal correctamente después del envío
-                    modal.style.display = "flex";
-                    modal.classList.add("fade-in");
-
-                    // Ocultar el modal después de 3 segundos
-                    setTimeout(() => {
-                        modal.classList.remove("fade-in");
-                        modal.classList.add("fade-out");
-                        setTimeout(() => {
-                            modal.style.display = "none";
-                            modal.classList.remove("fade-out");
-                        }, 500);
-                    }, 3000);
-                } else {
-                    alert("Error en el envío del formulario.");
-                }
+                // Mostramos el mensaje de respuesta en el elemento correspondiente
+                document.getElementById("responseMessage").innerText = data.message;
             })
-            .catch(error => console.error("Error:", error));
-        });
-
-        // Cerrar el modal manualmente
-        closeModal.addEventListener("click", function () {
-            modal.style.display = "none";
-        });
+            .catch(error => console.error("Error:", error)); // Capturamos y mostramos cualquier error en la consola
     });
 </script>

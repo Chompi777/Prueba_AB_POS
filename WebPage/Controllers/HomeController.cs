@@ -6,9 +6,10 @@ namespace WebPage.Controllers
 {
     public class HomeController : Controller
     {
+        // Acción que maneja la página de inicio
         public IActionResult Index()
         {
-            return View();
+            return View(); // Retorna la vista principal
         }
     }
 }

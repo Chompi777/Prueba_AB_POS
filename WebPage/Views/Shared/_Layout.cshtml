@@ -1,12 +1,18 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Configuración básica del documento -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Título dinámico de la página -->
     <title>@ViewData["Title"]</title>
+
+    <!-- Enlace al archivo CSS con versión automática para evitar problemas de caché -->
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
 </head>
 <body>
+    <!-- Encabezado de la página con el nombre de la empresa y navegación -->
     <header>
         <h2>💡 OnlyDevs</h2>
         <nav>
@@ -17,10 +23,12 @@
         </nav>
     </header>
 
+    <!-- Sección principal donde se renderizará el contenido dinámico -->
     <main>
         @RenderBody()
     </main>
 
+    <!-- Pie de página con información de derechos -->
     <footer>
         <p>© 2025 OnlyDevs - Creando Futuro con Código 🖥️</p>
     </footer>
