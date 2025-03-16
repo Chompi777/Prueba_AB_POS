@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebPage.Data;
-using WebPage.Models;
+using WebPage.Models;  // Asegúrate de importar tus modelos
+using WebPage.Data;    // Asegúrate de importar el espacio de nombres que contiene ApplicationDbContext
 
 namespace WebPage.Controllers
 {
