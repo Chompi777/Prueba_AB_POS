@@ -1,39 +1,71 @@
 ﻿@{
-    ViewData["Title"] = "OnlyDevs - Innovando el Desarrollo";
+    ViewData["Title"] = "OnlyDevs - Contacto";
 }
 
-<div class="hero">
-    <h1>🚀 Bienvenido a <span>OnlyDevs</span></h1>
-    <p>Transformamos ideas en código, construyendo soluciones innovadoras.</p>
-    <a href="#contact" class="cta-button">Contáctanos</a>
+<div class="container">
+    <h1>Bienvenido a OnlyDevs</h1>
+    <p>Tu mejor opción para soluciones tecnológicas innovadoras.</p>
 </div>
 
 <!-- Formulario de Contacto -->
-<div id="contact" class="contact-form">
-    <h3>💬 ¡Hablemos!</h3>
+<div class="contact-form">
+    <h3>Contáctanos</h3>
     <form id="contactForm">
-        <input type="text" name="Name" placeholder="Tu Nombre" required>
+        <input type="text" name="Name" placeholder="Nombre" required>
         <input type="email" name="Email" placeholder="Correo Electrónico" required>
-        <textarea name="Message" placeholder="Escribe tu mensaje..." required></textarea>
-        <button type="submit">Enviar ✉️</button>
+        <textarea name="Message" placeholder="Mensaje" required></textarea>
+        <button type="submit">Enviar</button>
     </form>
-    <p id="responseMessage"></p>
+</div>
+
+<!-- Modal de Confirmación (Oculto al inicio) -->
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>¡Mensaje Enviado!</h2>
+        <p>Gracias por contactarnos. Te responderemos pronto.</p>
+    </div>
 </div>
 
 <script>
-    document.getElementById("contactForm").addEventListener("submit", function (event) {
-        event.preventDefault();
+    document.addEventListener("DOMContentLoaded", function () {
+        let modal = document.getElementById("confirmationModal");
+        let closeModal = document.querySelector(".close");
 
-        let formData = new FormData(this);
+        document.getElementById("contactForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            let formData = new FormData(this);
 
-        fetch("/Contact/Submit", {
-            method: "POST",
-            body: formData
-        })
+            fetch("/Contact/Submit", {
+                method: "POST",
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("responseMessage").innerText = data.message;
+                if (data.success) {
+                    // Mostrar el modal correctamente después del envío
+                    modal.style.display = "flex";
+                    modal.classList.add("fade-in");
+
+                    // Ocultar el modal después de 3 segundos
+                    setTimeout(() => {
+                        modal.classList.remove("fade-in");
+                        modal.classList.add("fade-out");
+                        setTimeout(() => {
+                            modal.style.display = "none";
+                            modal.classList.remove("fade-out");
+                        }, 500);
+                    }, 3000);
+                } else {
+                    alert("Error en el envío del formulario.");
+                }
             })
             .catch(error => console.error("Error:", error));
+        });
+
+        // Cerrar el modal manualmente
+        closeModal.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
     });
 </script>

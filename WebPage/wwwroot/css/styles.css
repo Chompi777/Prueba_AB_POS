@@ -1,202 +1,94 @@
-﻿/* 🎨 Estilos Globales */
-body {
+﻿body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #1B1B32, #2D2D5A);
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-/* 🌟 Encabezado */
-header {
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+.container {
+    padding: 50px;
 }
 
-    header h2 {
-        color: #E91E63;
-        margin: 0;
-        font-size: 1.8rem;
-        font-weight: bold;
-    }
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-}
-
-    nav ul li {
-        margin: 0 15px;
-    }
-
-        nav ul li a {
-            color: #FF8A65;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: color 0.3s ease-in-out;
-        }
-
-            nav ul li a:hover {
-                color: #E91E63;
-            }
-
-/* 🎆 Sección Hero */
-.hero {
-    padding: 120px 20px;
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-    .hero h1 {
-        font-size: 3.5rem;
-        color: #FF8A65;
-        margin-bottom: 15px;
-        text-shadow: 3px 3px 10px rgba(255, 138, 101, 0.5);
-    }
-
-    .hero span {
-        color: #E91E63;
-        font-weight: bold;
-    }
-
-    .hero p {
-        font-size: 1.5rem;
-        max-width: 600px;
-        line-height: 1.6;
-        animation: slideIn 1.5s ease-in-out;
-    }
-
-.cta-button {
-    background: #E91E63;
-    color: white;
-    text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    margin-top: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    transition: all 0.4s ease-in-out;
-    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.5);
-}
-
-    .cta-button:hover {
-        background: #FF8A65;
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(255, 138, 101, 0.7);
-    }
-
-/* 📩 Formulario de Contacto */
 .contact-form {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
     background: white;
-    color: #1B1B32;
-    padding: 25px;
-    width: 400px;
-    margin: 50px auto;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 138, 101, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
     text-align: center;
-    transform: scale(0.9);
-    transition: transform 0.3s ease-in-out;
+    color: black;
 }
 
-    .contact-form:hover {
-        transform: scale(1);
-    }
-
-    .contact-form h3 {
-        color: #E91E63;
-        margin-bottom: 10px;
-        font-size: 1.8rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
+    .contact-form input, .contact-form textarea {
         width: 100%;
-        padding: 12px;
-        margin: 10px 0;
-        border: 2px solid #FF8A65;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        transition: all 0.3s ease-in-out;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
     }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: #E91E63;
-            box-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
-            outline: none;
-        }
 
     .contact-form button {
-        width: 100%;
-        background: #E91E63;
+        background: #ff4081;
         color: white;
-        padding: 12px;
-        font-size: 1.2rem;
-        font-weight: bold;
         border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 5px;
         cursor: pointer;
-        border-radius: 8px;
-        transition: all 0.3s ease-in-out;
+        font-size: 16px;
+        transition: 0.3s;
     }
 
         .contact-form button:hover {
-            background: #FF8A65;
-            transform: scale(1.05);
+            background: #e60065;
         }
 
-/* 🔥 Footer */
-footer {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    width: 100%;
+/* Modal (Oculto al inicio) */
+.modal {
+    display: none; /* Ocultar al inicio */
     position: fixed;
-    bottom: 0;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+    /* Animación para que el modal aparezca suavemente */
+    .modal.fade-in {
+        opacity: 1;
+    }
+
+    /* Animación para que el modal desaparezca suavemente */
+    .modal.fade-out {
+        opacity: 0;
+    }
+
+/* Contenedor del Modal */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
     text-align: center;
-    font-size: 1rem;
-    color: #FF8A65;
+    color: black;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* 💫 Animaciones */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.close {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
 }
