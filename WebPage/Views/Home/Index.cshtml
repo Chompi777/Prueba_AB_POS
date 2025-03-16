@@ -1,8 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Página de la Empresa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <h1>Bienvenido a Nuestra Empresa</h1>
+    <p>Proporcionamos los mejores servicios.</p>
 </div>
+
+<!-- Formulario de Contacto -->
+<div class="contact-form">
+    <h3>Contáctanos</h3>
+    <form id="contactForm">
+        <input type="text" name="Name" placeholder="Nombre" required>
+        <input type="email" name="Email" placeholder="Correo Electrónico" required>
+        <textarea name="Message" placeholder="Mensaje" required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+    <p id="responseMessage"></p>
+</div>
+
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch("/Contact/Submit", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("responseMessage").innerText = data.message;
+        })
+        .catch(error => console.error("Error:", error));
+    });
+</script>
