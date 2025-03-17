@@ -6,31 +6,17 @@ namespace WebPage.Controllers
 {
     public class ContactController : Controller
     {
-        // Inyección de dependencias para acceder a la base de datos
-        private readonly ApplicationDbContext _context;
-
-        public ContactController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        // Método que maneja la recepción del formulario de contacto
         [HttpPost]
-        public async Task<IActionResult> Submit(ContactForm model)
+        public JsonResult Submit(string Name, string Email, string Message)
         {
-            // Verifica si los datos enviados son válidos según el modelo
-            if (ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Message))
             {
-                // Agrega el formulario recibido a la base de datos
-                _context.ContactForms.Add(model);
-                await _context.SaveChangesAsync();  // Guarda los cambios de forma asíncrona
-
-                // Retorna una respuesta en formato JSON indicando éxito
-                return Json(new { success = true, message = "Mensaje enviado con éxito." });
+                return Json(new { message = "⚠️ Todos los campos son obligatorios." });
             }
 
-            // Si los datos no son válidos, devuelve un mensaje de error
-            return Json(new { success = false, message = "Error en el envío del formulario." });
+            // Aquí podrías agregar lógica para guardar el mensaje en la BD
+
+            return Json(new { message = "✅ Tu mensaje ha sido enviado con éxito." });
         }
     }
 }

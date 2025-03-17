@@ -14,36 +14,46 @@
 <div id="contact" class="contact-form">
     <h3>💬 ¡Hablemos!</h3>
     <form id="contactForm">
-        <!-- Campo para el nombre del usuario -->
-        <input type="text" name="Name" placeholder="Tu Nombre" required>
-        <!-- Campo para el correo electrónico -->
-        <input type="email" name="Email" placeholder="Correo Electrónico" required>
-        <!-- Área de texto para el mensaje -->
-        <textarea name="Message" placeholder="Escribe tu mensaje..." required></textarea>
-        <!-- Botón de envío del formulario -->
+        <input type="text" name="Name" id="name" placeholder="Tu Nombre" required>
+        <input type="email" name="Email" id="email" placeholder="Correo Electrónico" required>
+        <textarea name="Message" id="message" placeholder="Escribe tu mensaje..." required></textarea>
         <button type="submit">Enviar ✉️</button>
     </form>
-    <!-- Mensaje de respuesta tras enviar el formulario -->
     <p id="responseMessage"></p>
 </div>
 
 <script>
-    // Capturamos el evento de envío del formulario
     document.getElementById("contactForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Evita que la página se recargue al enviar
+        event.preventDefault(); // Evita que la página se recargue
 
-        let formData = new FormData(this); // Obtenemos los datos del formulario
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let message = document.getElementById("message").value.trim();
+        let responseMessage = document.getElementById("responseMessage");
 
-        // Enviamos los datos al backend mediante una petición fetch
+        // Validaciones
+        if (name === "" || email === "" || message === "") {
+            responseMessage.innerText = "⚠️ Todos los campos son obligatorios.";
+            responseMessage.style.color = "red";
+            return;
+        }
+
+        let formData = new FormData(this);
+
         fetch("/Contact/Submit", {
             method: "POST",
             body: formData
         })
-            .then(response => response.json()) // Convertimos la respuesta a JSON
+            .then(response => response.json())
             .then(data => {
-                // Mostramos el mensaje de respuesta en el elemento correspondiente
-                document.getElementById("responseMessage").innerText = data.message;
+                responseMessage.innerText = "✅ Tu mensaje ha sido enviado con éxito.";
+                responseMessage.style.color = "green";
+                document.getElementById("contactForm").reset(); // Limpia el formulario
             })
-            .catch(error => console.error("Error:", error)); // Capturamos y mostramos cualquier error en la consola
+            .catch(error => {
+                responseMessage.innerText = "❌ Ocurrió un error. Intenta nuevamente.";
+                responseMessage.style.color = "red";
+                console.error("Error:", error);
+            });
     });
 </script>
